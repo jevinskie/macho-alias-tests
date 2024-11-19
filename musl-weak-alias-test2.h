@@ -1,4 +1,6 @@
 #pragma once
 
+#include "alias.h"
+
 extern char *padding_var2;
-extern char *__progname_extern;
+extern char *__progname_extern WEAK_IMPORT;

@@ -18,13 +18,13 @@ clean:
 	clang -o $@ $^ $(C_FLAGS) -c
 
 %.dylib: %.macho.o
-	clang -o $@ $^ $(C_FLAGS) -shared
+	clang -o $@ $^ $(C_FLAGS) -fuse-ld=lld -shared
 
 musl-weak-alias-test-harness.macho: musl-weak-alias-test-harness.macho.o musl-weak-alias-test.macho.o musl-weak-alias-test2.macho.o
-	clang -fuse-ld=lld -o $@ $^ $(C_FLAGS)
+	clang $(C_FLAGS) -o $@ musl-weak-alias-test-harness.macho.o -Wl,--start-lib musl-weak-alias-test.macho.o musl-weak-alias-test2.macho.o -Wl,--end-lib -fuse-ld=lld -v -Wl,-v,-map,map.txt,-t,-why_load,-warn_weak_exports,-weak_reference_mismatches,error,-no_weak_exports,-no_weak_imports,-not_for_dyld_shared_cache
 
 %.macho: %.macho.o
-	clang -o $@ $^ $(C_FLAGS)
+	clang -o $@ $^ $(C_FLAGS) -fuse-ld=lld
 
 %.elf.s: %.c
 	x86_64-unknown-linux-gnu-gcc -o $@ $^ $(C_FLAGS) -S
@@ -39,4 +39,4 @@ musl-weak-alias-test-harness.elf: musl-weak-alias-test-harness.elf.o musl-weak-a
 	x86_64-unknown-linux-gnu-gcc -o $@ $^ $(C_FLAGS)
 
 malloc-deterministic-test: malloc-deterministic-test.c
-	clang -o $@ $^ $(C_FLAGS)
+	clang -o $@ $^ $(C_FLAGS) -fuse-ld=lld
