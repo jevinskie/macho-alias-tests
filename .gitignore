@@ -6,3 +6,4 @@
 **/*.dylib
 **/*.dSYM/
 malloc-deterministic-test
+map.txt

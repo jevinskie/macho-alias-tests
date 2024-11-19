@@ -1,7 +1,7 @@
 TARGETS := musl-weak-alias-test.dylib musl-weak-alias-test.so musl-weak-alias-test.elf.s musl-weak-alias-test.macho.s musl-weak-alias-test.elf.o musl-weak-alias-test.macho.o musl-weak-alias-test2.dylib musl-weak-alias-test2.so musl-weak-alias-test2.elf.s musl-weak-alias-test2.macho.s musl-weak-alias-test2.elf.o musl-weak-alias-test2.macho.o musl-weak-alias-test-harness.macho.s musl-weak-alias-test-harness.elf.s musl-weak-alias-test-harness.macho.o musl-weak-alias-test-harness.elf.o musl-weak-alias-test-harness.macho musl-weak-alias-test-harness.elf malloc-deterministic-test
 
 C_CXX_FLAGS := -Wall -Wextra -Wpedantic
-C_FLAGS := $(C_CXX_FLAGS) -std=gnu17
+C_FLAGS := $(C_CXX_FLAGS) -std=gnu17 -fPIC -fPIE
 
 all: $(TARGETS)
 
