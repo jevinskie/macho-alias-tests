@@ -21,7 +21,7 @@ clean:
 	clang -o $@ $^ $(C_FLAGS) -fuse-ld=lld -shared
 
 musl-weak-alias-test-harness.macho: musl-weak-alias-test-harness.macho.o musl-weak-alias-test.macho.o musl-weak-alias-test2.macho.o
-	clang $(C_FLAGS) -o $@ musl-weak-alias-test-harness.macho.o -Wl,--start-lib musl-weak-alias-test.macho.o musl-weak-alias-test2.macho.o -Wl,--end-lib -fuse-ld=lld -v -Wl,-v,-map,map.txt,-t,-why_load,-warn_weak_exports,-weak_reference_mismatches,error,-no_weak_exports,-no_weak_imports,-not_for_dyld_shared_cache
+	clang $(C_FLAGS) -o $@ musl-weak-alias-test-harness.macho.o -Wl,--start-lib musl-weak-alias-test.macho.o musl-weak-alias-test2.macho.o -Wl,--end-lib -fuse-ld=lld -v -Wl,-v,-map,map.txt,-t,-why_load,-warn_weak_exports,-weak_reference_mismatches,error,-no_weak_exports,-no_weak_imports,-not_for_dyld_shared_cache,-U,_program_invocation_short_name,-U,___progname_extern
 
 %.macho: %.macho.o
 	clang -o $@ $^ $(C_FLAGS) -fuse-ld=lld
